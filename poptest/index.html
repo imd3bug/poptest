@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --red-primary: #E63946;
+            --red-deep: #C1121F;
+            --red-dark: #780000;
+            --glow-color: rgba(230, 57, 70, 0.6);
+            --bg-dark: #0A0A0A;
+            --bg-darker: #050505;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Barlow', sans-serif;
+            background: var(--bg-dark);
+            overflow: hidden;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(230, 57, 70, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(193, 18, 31, 0.06) 0%, transparent 50%),
+                linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 255, 255, 0.01) 2px,
+                rgba(255, 255, 255, 0.01) 4px
+            );
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+
+        /* Grain texture overlay */
+        .grain {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            z-index: 1;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            animation: grain 8s steps(10) infinite;
+        }
+
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -10%); }
+            20% { transform: translate(-15%, 5%); }
+            30% { transform: translate(7%, -25%); }
+            40% { transform: translate(-5%, 25%); }
+            50% { transform: translate(-15%, 10%); }
+            60% { transform: translate(15%, 0%); }
+            70% { transform: translate(0%, 15%); }
+            80% { transform: translate(3%, 35%); }
+            90% { transform: translate(-10%, 10%); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            animation: fadeInUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Glowing red button */
+        .continue-btn {
+            position: relative;
+            background: linear-gradient(135deg, var(--red-primary) 0%, var(--red-deep) 100%);
+            color: white;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            letter-spacing: 0.15em;
+            padding: clamp(1.2rem, 4vw, 2rem) clamp(3rem, 10vw, 6rem);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: 400;
+            box-shadow: 
+                0 0 60px var(--glow-color),
+                0 0 120px var(--glow-color),
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                inset 0 -3px 10px rgba(0, 0, 0, 0.3),
+                inset 0 1px 2px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: pulse-glow 3s ease-in-out infinite;
+            overflow: hidden;
+        }
+
+        /* Pulse glow animation */
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 
+                    0 0 60px var(--glow-color),
+                    0 0 120px var(--glow-color),
+                    0 20px 60px rgba(0, 0, 0, 0.5),
+                    inset 0 -3px 10px rgba(0, 0, 0, 0.3),
+                    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+            }
+            50% {
+                box-shadow: 
+                    0 0 80px var(--glow-color),
+                    0 0 160px var(--glow-color),
+                    0 0 200px rgba(230, 57, 70, 0.3),
+                    0 20px 60px rgba(0, 0, 0, 0.5),
+                    inset 0 -3px 10px rgba(0, 0, 0, 0.3),
+                    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        /* Shimmer effect on button */
+        .continue-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -100%;
+            width: 100%;
+            height: 200%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transform: skewX(-20deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            50%, 100% {
+                left: 200%;
+            }
+        }
+
+        .continue-btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            background: linear-gradient(135deg, var(--red-deep) 0%, var(--red-dark) 100%);
+            box-shadow: 
+                0 0 100px var(--glow-color),
+                0 0 180px var(--glow-color),
+                0 0 240px rgba(230, 57, 70, 0.4),
+                0 30px 80px rgba(0, 0, 0, 0.6),
+                inset 0 -3px 10px rgba(0, 0, 0, 0.4),
+                inset 0 1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        .continue-btn:active {
+            transform: scale(0.98) translateY(0px);
+            box-shadow: 
+                0 0 40px var(--glow-color),
+                0 0 80px var(--glow-color),
+                0 10px 40px rgba(0, 0, 0, 0.5),
+                inset 0 -3px 10px rgba(0, 0, 0, 0.4),
+                inset 0 1px 2px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Radial glow behind button */
+        .glow-circle {
+            position: absolute;
+            width: clamp(400px, 60vw, 800px);
+            height: clamp(400px, 60vw, 800px);
+            background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            animation: rotate-glow 20s linear infinite, pulse-circle 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotate-glow {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes pulse-circle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Subtle hint text */
+        .hint {
+            position: absolute;
+            bottom: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: clamp(0.75rem, 2vw, 0.9rem);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 600;
+            z-index: 10;
+            animation: fadeIn 2s 1s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .continue-btn {
+                letter-spacing: 0.1em;
+            }
+            
+            .glow-circle {
+                width: 90vw;
+                height: 90vw;
+            }
+        }
+
+        /* Prevent text selection */
+        .continue-btn {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background effects -->
+    <div class="bg-animation"></div>
+    <div class="scanlines"></div>
+    <div class="grain"></div>
+    
+    <!-- Radial glow -->
+    <div class="glow-circle"></div>
+    
+    <!-- Main content -->
+    <div class="container">
+        <button class="continue-btn" onclick="openExternalLink()">
+            Continue
+        </button>
+    </div>
+    
+    <!-- Hint text -->
+    <div class="hint">Click to proceed</div>
+
+    <script>
+        function openExternalLink() {
+            const url = 'https://www.ch6rrl8trk.com/3KFRZ6/48M9K3/';
+            
+            // For iOS devices - force Safari
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            
+            if (isIOS) {
+                // On iOS, this will prompt to open in Safari if not already there
+                window.location.href = url;
+            } else {
+                // For other devices, open in new tab/external browser
+                window.location.href = url;
+            }
+        }
+
+        // Add keyboard support (Enter/Space)
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openExternalLink();
+            }
+        });
+
+        // Prevent accidental double-clicks
+        let clickTimeout;
+        const button = document.querySelector('.continue-btn');
+        button.addEventListener('click', function(e) {
+            if (clickTimeout) {
+                e.preventDefault();
+                return;
+            }
+            clickTimeout = setTimeout(() => {
+                clickTimeout = null;
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
