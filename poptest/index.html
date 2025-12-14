@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Continue</title>
+    <title>Redirecting...</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -117,106 +117,50 @@
             }
         }
 
-        /* Glowing red button */
-        .continue-btn {
-            position: relative;
-            background: linear-gradient(135deg, var(--red-primary) 0%, var(--red-deep) 100%);
-            color: white;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            letter-spacing: 0.15em;
-            padding: clamp(1.2rem, 4vw, 2rem) clamp(3rem, 10vw, 6rem);
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-weight: 400;
-            box-shadow: 
-                0 0 60px var(--glow-color),
-                0 0 120px var(--glow-color),
-                0 20px 60px rgba(0, 0, 0, 0.5),
-                inset 0 -3px 10px rgba(0, 0, 0, 0.3),
-                inset 0 1px 2px rgba(255, 255, 255, 0.2);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            animation: pulse-glow 3s ease-in-out infinite;
-            overflow: hidden;
-        }
-
-        /* Pulse glow animation */
-        @keyframes pulse-glow {
-            0%, 100% {
-                box-shadow: 
-                    0 0 60px var(--glow-color),
-                    0 0 120px var(--glow-color),
-                    0 20px 60px rgba(0, 0, 0, 0.5),
-                    inset 0 -3px 10px rgba(0, 0, 0, 0.3),
-                    inset 0 1px 2px rgba(255, 255, 255, 0.2);
-            }
-            50% {
-                box-shadow: 
-                    0 0 80px var(--glow-color),
-                    0 0 160px var(--glow-color),
-                    0 0 200px rgba(230, 57, 70, 0.3),
-                    0 20px 60px rgba(0, 0, 0, 0.5),
-                    inset 0 -3px 10px rgba(0, 0, 0, 0.3),
-                    inset 0 1px 2px rgba(255, 255, 255, 0.2);
-            }
-        }
-
-        /* Shimmer effect on button */
-        .continue-btn::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -100%;
-            width: 100%;
-            height: 200%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
-            transform: skewX(-20deg);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% {
-                left: -100%;
-            }
-            50%, 100% {
-                left: 200%;
-            }
-        }
-
-        .continue-btn:hover {
-            transform: scale(1.05) translateY(-2px);
-            background: linear-gradient(135deg, var(--red-deep) 0%, var(--red-dark) 100%);
-            box-shadow: 
-                0 0 100px var(--glow-color),
-                0 0 180px var(--glow-color),
-                0 0 240px rgba(230, 57, 70, 0.4),
-                0 30px 80px rgba(0, 0, 0, 0.6),
-                inset 0 -3px 10px rgba(0, 0, 0, 0.4),
-                inset 0 1px 2px rgba(255, 255, 255, 0.3);
-        }
-
-        .continue-btn:active {
-            transform: scale(0.98) translateY(0px);
+        /* Loading spinner */
+        .spinner {
+            width: clamp(60px, 15vw, 100px);
+            height: clamp(60px, 15vw, 100px);
+            border: 4px solid rgba(230, 57, 70, 0.1);
+            border-top: 4px solid var(--red-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 2rem;
             box-shadow: 
                 0 0 40px var(--glow-color),
-                0 0 80px var(--glow-color),
-                0 10px 40px rgba(0, 0, 0, 0.5),
-                inset 0 -3px 10px rgba(0, 0, 0, 0.4),
-                inset 0 1px 2px rgba(255, 255, 255, 0.2);
+                inset 0 0 20px rgba(230, 57, 70, 0.2);
         }
 
-        /* Radial glow behind button */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            color: white;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-shadow: 
+                0 0 20px var(--glow-color),
+                0 0 40px var(--glow-color);
+        }
+
+        .device-info {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* Radial glow behind spinner */
         .glow-circle {
             position: absolute;
-            width: clamp(400px, 60vw, 800px);
-            height: clamp(400px, 60vw, 800px);
+            width: clamp(300px, 50vw, 600px);
+            height: clamp(300px, 50vw, 600px);
             background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
             border-radius: 50%;
             top: 50%;
@@ -237,45 +181,36 @@
             50% { opacity: 0.5; }
         }
 
-        /* Subtle hint text */
-        .hint {
-            position: absolute;
-            bottom: 8%;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.3);
-            font-size: clamp(0.75rem, 2vw, 0.9rem);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            font-weight: 600;
-            z-index: 10;
-            animation: fadeIn 2s 1s forwards;
-            opacity: 0;
+        /* Progress bar */
+        .progress-container {
+            width: clamp(200px, 60vw, 400px);
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin: 2rem auto 0;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--red-primary), var(--red-deep));
+            border-radius: 2px;
+            width: 0%;
+            animation: progress 2s ease-out forwards;
+            box-shadow: 0 0 20px var(--glow-color);
         }
 
-        /* Mobile optimizations */
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
         @media (max-width: 768px) {
-            .continue-btn {
-                letter-spacing: 0.1em;
-            }
-            
             .glow-circle {
-                width: 90vw;
-                height: 90vw;
+                width: 80vw;
+                height: 80vw;
             }
-        }
-
-        /* Prevent text selection */
-        .continue-btn {
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
@@ -290,50 +225,68 @@
     
     <!-- Main content -->
     <div class="container">
-        <button class="continue-btn" onclick="openExternalLink()">
-            Continue
-        </button>
+        <div class="spinner"></div>
+        <div class="status-text">Redirecting</div>
+        <div class="device-info" id="deviceType">Detecting device...</div>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
     </div>
-    
-    <!-- Hint text -->
-    <div class="hint">Click to proceed</div>
 
     <script>
-        function openExternalLink() {
-            const url = 'https://www.ch6rrl8trk.com/3KFRZ6/48M9K3/';
+        // Comprehensive device detection
+        function isMobileDevice() {
+            // Check 1: User Agent detection
+            const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i;
+            const userAgentIsMobile = mobileRegex.test(navigator.userAgent);
             
-            // For iOS devices - force Safari
+            // Check 2: Touch capability (modern approach)
+            const hasTouchScreen = (
+                ('ontouchstart' in window) ||
+                (navigator.maxTouchPoints > 0) ||
+                (navigator.msMaxTouchPoints > 0)
+            );
+            
+            // Check 3: Screen size (backup check)
+            const smallScreen = window.innerWidth <= 768;
+            
+            // Check 4: Specific mobile OS detection
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            const isAndroid = /Android/.test(navigator.userAgent);
+            const isWindowsPhone = /Windows Phone/.test(navigator.userAgent);
             
-            if (isIOS) {
-                // On iOS, this will prompt to open in Safari if not already there
-                window.location.href = url;
+            // Device is mobile if ANY of these are true
+            return userAgentIsMobile || isIOS || isAndroid || isWindowsPhone || 
+                   (hasTouchScreen && smallScreen);
+        }
+
+        function redirectUser() {
+            const mobile = isMobileDevice();
+            const deviceTypeEl = document.getElementById('deviceType');
+            
+            if (mobile) {
+                // Mobile device - redirect to the app install link
+                deviceTypeEl.textContent = 'Mobile Device Detected';
+                
+                setTimeout(() => {
+                    window.location.href = 'https://www.ch6rrl8trk.com/3KFRZ6/48M9K3/';
+                }, 2000); // 2 second delay for visual effect
+                
             } else {
-                // For other devices, open in new tab/external browser
-                window.location.href = url;
+                // Desktop/Web browser - redirect to YouTube
+                deviceTypeEl.textContent = 'Desktop Browser Detected';
+                
+                setTimeout(() => {
+                    window.location.href = 'https://www.youtube.com';
+                }, 2000); // 2 second delay for visual effect
             }
         }
 
-        // Add keyboard support (Enter/Space)
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                openExternalLink();
-            }
-        });
-
-        // Prevent accidental double-clicks
-        let clickTimeout;
-        const button = document.querySelector('.continue-btn');
-        button.addEventListener('click', function(e) {
-            if (clickTimeout) {
-                e.preventDefault();
-                return;
-            }
-            clickTimeout = setTimeout(() => {
-                clickTimeout = null;
-            }, 1000);
-        });
+        // Execute redirect immediately when page loads
+        window.addEventListener('load', redirectUser);
+        
+        // Fallback: Also execute after a short delay in case load event already fired
+        setTimeout(redirectUser, 100);
     </script>
 </body>
 </html>
